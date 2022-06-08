@@ -25,7 +25,13 @@ class scrapTest(scrapy.Spider):
     def parse_categories(self, response):
 
         yield {
-            'name': response.css('div.ent-head-center').css('h1::text').get()
+            'name': response.css('div.ent-head-center').css('h1::text').get(),
+            'image': response.css('div.ent-head-left').css('img::attr(src)').get(),
+            'events':[
+                {
+                    ""
+                }
+            ]
 ,
         }
 
