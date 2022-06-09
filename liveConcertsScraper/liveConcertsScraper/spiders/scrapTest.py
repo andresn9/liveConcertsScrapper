@@ -33,6 +33,7 @@ class scrapTest(scrapy.Spider):
             location= response[x].css("div.l-subtitle-entity").css("a::text").get()
             date = response[x].css("li").css("meta[itemprop=startDate]::attr(content)").get()
             time = response[x].css("div.ent-results-list-hour-time").css("span::text").get()
+            price = response[x].css("div.ent-results-list-hour-price").css("span::text").get()
 
             if(name is not None and location is not None and date is not None and time is not None):
                 event = {
@@ -40,7 +41,9 @@ class scrapTest(scrapy.Spider):
                     "name": name,
                     "location": location,
                     "date": date,
-                    "time": time
+                    "time": time,
+                    "price" : price
+
                 }
                 self.events_ids+=1
                 events.append(event)
