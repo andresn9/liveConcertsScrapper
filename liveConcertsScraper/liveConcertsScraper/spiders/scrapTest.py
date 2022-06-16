@@ -13,14 +13,11 @@ class scrapTest(scrapy.Spider):
     events_ids = 1
     # Parses the website
 
-    #response.css('div.d-mosaic__box').css('div.d-mosaic__box').attrib['data-link']
-
-    #response.follow(response.css('div.d-mosaic__box').css('div.d-mosaic__box').attrib['data-link'].get())
 
     def parse(self, response):
         for link in response.css('a.d-mosaic__c-btn::attr(href)'):
 
-            yield response.follow(link.get(), callback=self.parse_categories)
+            yield response.follow(link.get(), callback=self.parse_info)
 
 
     def get_events(self, response,n):
@@ -38,7 +35,7 @@ class scrapTest(scrapy.Spider):
             if(name is not None and location is not None and date is not None and time is not None):
                 event = {
                     "id" : "c" + str(self.events_ids),
-                    "name": name,
+                    "eventName": name,
                     "location": location,
                     "date": date,
                     "time": time,
@@ -52,32 +49,7 @@ class scrapTest(scrapy.Spider):
 
         return events
 
-    def parse_categories(self, response):
-
-
-
-        # respuesta.css("li").css("meta[itemprop=name]")
-        # name =""
-        # location=""
-        # date=""
-        # time=""
-        #
-        # concerts=""
-        #
-        # respuesta = response.css('ul.ent-results-list')
-        #
-        #
-        # for event in respuesta:
-        #     name = respuesta.css("h2.l-title-entity::text").get()
-        #     location= respuesta.css("div.l-subtitle-entity").css("a::text").get()
-        #     date = respuesta.css("li").css("meta[itemprop=startDate]::attr(content)").get()
-        #     time = respuesta.css("div.ent-results-list-hour-time").css("span::text").get()
-
-
-
-            # respuesta.css("li").css("meta[itemprop=startDate]::attr(content)").get()
-            # respuesta.css("div.l-subtitle-entity").css("a::text").get()
-
+    def parse_info(self, response):
 
 
         yield {
@@ -96,74 +68,6 @@ class scrapTest(scrapy.Spider):
 
 
 
-
-
-
-        # for x in response.css('div.d-mosaic__box'):
-        #     try:
-        #         final_link= x.css('div.d-mosaic__box').attrib['data-link']
-        #         final_link = "https://www.taquilla.com" + final_link.replace("'", "")
-        #
-        #         info_page = final_link
-        #
-        #
-        #
-        #         yield {
-        #                     'name' : x.css('h3.d-mosaic__title::text').get(),
-        #                      'link': final_link ,
-        #                  }
-        #
-        #
-        #
-        #
-        #     except:
-        #         yield {
-        #                     'name': x.css('h3.d-mosaic__title::text').get(),
-        #                     'link': "",
-        #                 }
-        #
-        #
-        #
-        #
-
-
-
-
-
-
-        # for x in response.css('div.d-mosaic__box'):
-        #
-        #     try:
-        #         yield {
-        #             'name' : x.css('h3.d-mosaic__title::text').get(),
-        #             'link': x.css('div.d-mosaic__box').attrib['data-link'] ,
-        #         }
-        #     except:
-        #         yield {
-        #             'name': x.css('h3.d-mosaic__title::text').get(),
-        #             'link': "",
-        #         }
-        #
-        # next_page=
-
-
-
-
-
-
-
-
-
-
-        #
-        # # fetch('https://www.taquilla.com/conciertos/pop-rock?t10type=2&t10subtype=2&t10start=0&t10num=2000&')
-        # links = response.css('div.d-mosaic__box').getall()
-        #
-        # for link in links:
-        #     final_link = response.css('div.d-mosaic__box').attrib['data-link']
-        #     final_link = "https://www.taquilla.com" + final_link.replace("'","")
-        #     print(final_link)
-        #
 
 
 
